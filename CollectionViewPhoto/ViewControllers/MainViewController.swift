@@ -17,15 +17,15 @@ class MainViewController: UICollectionViewController {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        guard segue.identifier == "DetailVC" else {return}
-//        let detailVC = segue.destination as! DetailViewController
-//        detailVC.playerFromMain = sender as? Player
-          guard segue.identifier == "DetailVC" else {return}
-         guard let indexPath = collectionView.indexPathsForSelectedItems?.first else{return}
-         let detailVC = segue.destination as! DetailViewController
-         detailVC.playerFromMain = playersList.forCell(index: indexPath)
-         
-        
+        guard segue.identifier == "DetailVC" else {return}
+        let detailVC = segue.destination as! DetailViewController
+        detailVC.playerFromMain = sender as? Player
+//          guard segue.identifier == "DetailVC" else {return}
+//         guard let indexPath = collectionView.indexPathsForSelectedItems?.first else{return}
+//         let detailVC = segue.destination as! DetailViewController
+//         detailVC.playerFromMain = playersList.forCell(index: indexPath)
+//
+//
     }
     
     // MARK: UICollectionViewDataSource
@@ -57,11 +57,10 @@ class MainViewController: UICollectionViewController {
     
     // MARK: UICollectionViewDelegate
     
-  //  override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let player = playersList.forCell(index: indexPath)
-//        performSegue(withIdentifier: "DetailVC", sender: player)
-//
-//    }
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let player = playersList.forCell(index: indexPath)
+        performSegue(withIdentifier: "DetailVC", sender: player)
+    }
     
 }
 extension MainViewController: UICollectionViewDelegateFlowLayout {
