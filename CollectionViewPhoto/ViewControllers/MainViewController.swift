@@ -14,6 +14,14 @@ class MainViewController: UICollectionViewController {
     // свойство для работы с моделью
     var playersList = PlayersList()
     
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        layout.sectionHeadersPinToVisibleBounds = true    }
+    
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
