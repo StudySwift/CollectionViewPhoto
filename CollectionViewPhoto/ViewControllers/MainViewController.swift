@@ -14,18 +14,19 @@ class MainViewController: UICollectionViewController {
     // свойство для работы с моделью
     var playersList = PlayersList()
     
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let layout = collectionViewLayout as! UICollectionViewFlowLayout
+        layout.sectionHeadersPinToVisibleBounds = true
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "DetailVC" else {return}
         let detailVC = segue.destination as! DetailViewController
         detailVC.playerFromMain = sender as? Player
-//          guard segue.identifier == "DetailVC" else {return}
-//         guard let indexPath = collectionView.indexPathsForSelectedItems?.first else{return}
-//         let detailVC = segue.destination as! DetailViewController
-//         detailVC.playerFromMain = playersList.forCell(index: indexPath)
-//
-//
     }
     
     // MARK: UICollectionViewDataSource
@@ -63,7 +64,7 @@ class MainViewController: UICollectionViewController {
     }
     
 }
-extension MainViewController: UICollectionViewDelegateFlowLayout {
+extension MainViewController: UICollectionViewDelegateFlowLayout{
     //Размеры ячейки
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //общая ширина отступов
@@ -93,11 +94,3 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 }
 
 
-
-//некоторые решения которые как-то перенесу в GIT
-//простая передача данных
-/*  guard segue.identifier == "DetailVC" else {return}
- guard let indexPath = collectionView.indexPathsForSelectedItems?.first else{return}
- let detailVC = segue.destination as! DetailViewController
- detailVC.playerFromMain = playersList.returnsItem(forIndex: indexPath.row)
- */
