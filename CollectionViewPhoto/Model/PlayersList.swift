@@ -31,8 +31,30 @@ class PlayersList{
                                         Player(name: "Александр", surName: "Заваров", club: "Динамо Киев", position: "Полузащитник", photo: "zavarov"),
                                         Player(name: "Валерий", surName: "Лобановский", club: "Динамо Киев", position: "Нападающий", photo: "loban"),
                                         Player(name: "Олег", surName: "Блохин", club: "Динамо Киев", position: "Нападающий", photo: "blokhin")]
+    //функция добавления нового игрока в массив
+    func addNewPlayer(newPlayer: Player) {
+        playerList.append(newPlayer)
+    }
     
     private var arrayForSection:[String] = ["Динамо Киев", "Аякс", "Барселона", "Бавария Мюнхен"]
+    
+    //функция добавления нового клуба
+    func addNewClub(newClub: Player) {
+        guard let club = elForSection(newClub: newClub) else {return}
+        arrayForSection.append(club)
+    }
+    //промежуточная функция
+    func elForSection(newClub: Player) -> String? {
+        var club = ""
+        for el in arrayForSection{
+            if newClub.club != el {
+                club = newClub.club
+            } else{
+                return nil
+            }
+        }
+        return club
+    }
     
     //количество секций
     var sectionCount: Int{

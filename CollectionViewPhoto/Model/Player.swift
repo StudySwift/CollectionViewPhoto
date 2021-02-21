@@ -11,6 +11,7 @@ struct Player {
     var surName: String
     var club: String
     var position: String
-    var photo: String
+    var photo: String?
+    var newPhoto: UIImage?
 }
 

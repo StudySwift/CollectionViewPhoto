@@ -21,9 +21,12 @@ class DetailViewController: UIViewController {
             nameSurnameLB.text = getPlayer.name + " " + getPlayer.surName
             positionLB.text = getPlayer.position
             clubLB.text = getPlayer.club
-            imageDetail.image = UIImage(named: getPlayer.photo)
+            
+            if getPlayer.newPhoto == nil{
+                imageDetail.image = UIImage(named: getPlayer.photo!)
+            }else {
+                imageDetail.image = getPlayer.newPhoto
+            }
         }
     }
-    
-    
 }

@@ -9,9 +9,13 @@ import UIKit
 
 class MainCell: UICollectionViewCell {
     @IBOutlet weak var imageCellOT: UIImageView!
-   
+
     func fillCell(player: Player){
-        imageCellOT.image = UIImage(named: player.photo)
+            if player.newPhoto == nil{
+                imageCellOT.image = UIImage(named: player.photo!)
+            }else {
+                imageCellOT.image = player.newPhoto
+            }
     }
     
     override func prepareForReuse() {

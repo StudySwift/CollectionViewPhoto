@@ -8,13 +8,23 @@
 import UIKit
 
 class AddNewPlayerViewController: UITableViewController {
-
+    var newPlayerMainVC: Player?
+    @IBAction func textChangedAC(_ sender: UITextField) {
+        onOffSaveButton()
+    }
+    
+    
+    @IBOutlet weak var saveButtonOT: UIBarButtonItem!
     @IBOutlet weak var imageOT: UIImageView!
+    @IBOutlet weak var nameOT: UITextField!
+    @IBOutlet weak var surNameOT: UITextField!
+    @IBOutlet weak var positionOT: UITextField!
+    @IBOutlet weak var clubOT: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        saveButtonOT.isEnabled = false
+        onOffSaveButton()
     }
     
 
@@ -45,6 +55,25 @@ extension AddNewPlayerViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    //функция включения и выключения кнопки Save
+    private func onOffSaveButton() {
+        let name = nameOT.text ?? ""
+        let surname = surNameOT.text ?? ""
+        let position = positionOT.text ?? ""
+        let club = clubOT.text ?? ""
+        saveButtonOT.isEnabled = !name.isEmpty && !surname.isEmpty && !position.isEmpty && !club.isEmpty
+    }
+    
+    //функция сохранения добавленного игрока
+    func saveNewContact(){
+        let name = nameOT.text ?? "Unknown"
+        let surname = surNameOT.text ?? "Unknown"
+        let club = clubOT.text ?? "Unknown"
+        let position = positionOT.text ?? "Unknown"
+        let chooseImage = imageOT.image
+        newPlayerMainVC = Player(name: name, surName: surname, club: club, position: position, photo: nil, newPhoto: chooseImage)
+    }
+    
 }
 
 //MARK: Работа с добавлением новых изображений

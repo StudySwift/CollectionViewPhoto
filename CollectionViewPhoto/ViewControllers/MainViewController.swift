@@ -14,7 +14,6 @@ class MainViewController: UICollectionViewController {
     // свойство для работы с моделью
     var playersList = PlayersList()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         let layout = collectionViewLayout as! UICollectionViewFlowLayout
@@ -22,15 +21,26 @@ class MainViewController: UICollectionViewController {
     }
     
     // MARK: - Navigation
-    
+    //передача информации на DetailVC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "DetailVC" else {return}
         let detailVC = segue.destination as! DetailViewController
         detailVC.playerFromMain = sender as? Player
     }
+    //передача информации c AddNewPlayerVC
+    @IBAction func unwindSegue(unwindSegue: UIStoryboardSegue) {
+        guard unwindSegue.identifier == "AddNewPlayer"else{return}
+        guard let newPlayerVC = unwindSegue.source as? AddNewPlayerViewController else{return}
+        newPlayerVC.saveNewContact()
+        let newPlayer = newPlayerVC.newPlayerMainVC
+        playersList.addNewPlayer(newPlayer: newPlayer!)
+        playersList.addNewClub(newClub: newPlayer!)
+        
+        collectionView.reloadData()
+        //print(newPlayer!.club)
+    }
     
     // MARK: UICollectionViewDataSource
-    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return playersList.sectionCount
@@ -47,7 +57,6 @@ class MainViewController: UICollectionViewController {
         
         return cell
     }
-    
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let sectionTitle = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SectionTitle", for: indexPath) as! SectionReusableView
         if let title = playersList.titleForSectionAtIndexPath(indexPath) {
@@ -64,6 +73,7 @@ class MainViewController: UICollectionViewController {
     }
     
 }
+// MARK: UICollectionViewDelegateFlowLayout
 extension MainViewController: UICollectionViewDelegateFlowLayout{
     //Размеры ячейки
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
